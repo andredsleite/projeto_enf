@@ -1,0 +1,5 @@
+saida/
+cache_ftp/
+*.dbc
+*.dbf
+__pycache__/
