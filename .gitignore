@@ -1,5 +1,8 @@
 saida/
 cache_ftp/
+cache_cnes/
 *.dbc
 *.dbf
+*.zip
+*.gpkg
 __pycache__/

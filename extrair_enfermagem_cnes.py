@@ -111,7 +111,13 @@ def main():
     final = pd.concat(partes, ignore_index=True)
     final.insert(1, "COMPETENCIA_ARQUIVO", competencia)
     arq = saida / f"enfermagem_cnes_{competencia}.csv"
-    final.to_csv(arq, index=False, encoding="utf-8-sig", sep=";")
+    try:
+        final.to_csv(arq, index=False, encoding="utf-8-sig", sep=";")
+    except PermissionError:
+        # Arquivo aberto no Excel (ou travado por antivirus/OneDrive): grava com outro nome
+        arq = arq.with_name(f"{arq.stem}_novo.csv")
+        print(f"Arquivo original em uso; gravando como {arq.name}")
+        final.to_csv(arq, index=False, encoding="utf-8-sig", sep=";")
     print(f"Gravado: {arq} ({len(final)} linhas)")
 
 
